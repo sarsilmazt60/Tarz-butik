@@ -20,19 +20,19 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Gradle kur
+      - name: Gradle kurulumu
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.2.1'
 
-      - name: Gradle wrapper oluştur
-        working-directory: tarz
-        run: gradle wrapper
+      - name: Gradle Wrapper oluştur
+        run: gradle wrapper --gradle-version 9.2.1
 
-      - name: Debug APK oluştur
-        working-directory: tarz
+      - name: APK oluştur
         run: ./gradlew assembleDebug --stacktrace
 
       - name: APK'yi yükle
         uses: actions/upload-artifact@v4
         with:
           name: Tarz-Butik-APK
-          path: tarz/app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
