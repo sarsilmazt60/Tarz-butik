@@ -25,11 +25,15 @@ jobs:
         with:
           gradle-version: '9.3.1'
 
+      - name: Extract Android project
+        run: unzip -q tarz-butik-gelistirilmis-veri-korumali.zip -d build-src
+
       - name: Build APK
+        working-directory: build-src
         run: gradle assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: tarz-butik-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: build-src/app/build/outputs/apk/debug/app-debug.apk
