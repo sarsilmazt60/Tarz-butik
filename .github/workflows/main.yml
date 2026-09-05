@@ -1,10 +1,10 @@
 name: Tarz Butik APK
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -14,25 +14,20 @@ jobs:
       - name: Kodu indir
         uses: actions/checkout@v4
 
-      - name: Java 17 kur
+      - name: Java 17 kurulumu
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Gradle kurulumu
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '9.2.1'
-
-      - name: Gradle Wrapper oluştur
-        run: gradle wrapper --gradle-version 9.2.1
+      - name: Gradle izinleri
+        run: chmod +x gradlew
 
       - name: APK oluştur
-        run: ./gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleDebug
 
-      - name: APK'yi yükle
+      - name: APK yükle
         uses: actions/upload-artifact@v4
         with:
-          name: Tarz-Butik-APK
-          path: app/build/outputs/apk/debug/*.apk
+          name: tarz-butik-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
