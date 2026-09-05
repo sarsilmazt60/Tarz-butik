@@ -26,11 +26,21 @@ jobs:
           gradle-version: '9.3.1'
 
       - name: Extract Android project
-        
-run: unzip -q tarz-butik-gelistirilmis-veri-korumali-fixed.zip -d build-src
+        run: |
+          rm -rf build-src
+          mkdir -p build-src
+          unzip -q tarz-butik-gelistirilmis-veri-korumali-fixed.zip -d build-src
+
+      - name: Check project
+        run: |
+          echo "=== Proje dosyaları ==="
+          find build-src -maxdepth 3 -type f | head -100
+          echo "=== debug.keystore kontrolü ==="
+          find build-src -name "debug.keystore" -print
+
       - name: Build APK
         working-directory: build-src
-        run: gradle assembleDebug
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
