@@ -26,8 +26,8 @@ jobs:
           gradle-version: '9.3.1'
 
       - name: Extract Android project
-        run: unzip -q tarz-butik-gelistirilmis-veri-korumali.zip -d build-src
-
+        
+run: unzip -q tarz-butik-gelistirilmis-veri-korumali-fixed.zip -d build-src
       - name: Build APK
         working-directory: build-src
         run: gradle assembleDebug
