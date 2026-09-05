@@ -11,22 +11,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Kodu indir
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Java 17 kurulumu
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Gradle izinleri
+      - name: Gradle permissions
         run: chmod +x gradlew
 
-      - name: APK oluştur
+      - name: Build APK
         run: ./gradlew assembleDebug
 
-      - name: APK yükle
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: tarz-butik-apk
